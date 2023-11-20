@@ -11,5 +11,8 @@ framework:
 #                dsn: '%env(LOCO_DSN)%'
 #            lokalise:
 #                dsn: '%env(LOKALISE_DSN)%'
+<<<<<<< HEAD
 #            phrase:
 #                dsn: '%env(PHRASE_DSN)%'
+=======
+>>>>>>> 837e61fa45bd928bdda3fad299c9928d7263ddfd
