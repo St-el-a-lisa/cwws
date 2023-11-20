@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row g-5">
+        <div class="col">
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">{{ category.name }} </h3>
+        </div>
+        <div id="articles-list">
+            {% include 'product/list.html.twig' with { products : category.products } %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

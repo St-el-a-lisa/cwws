@@ -1,0 +1,9 @@
+<div class="p-4">
+    <h4 class="fst-italic">Sujets</h4>
+    <ol class="list-unstyled mb-0">
+        {%  for subject in subjects %}
+            <li><a class="text-decoration-none" href="{{ path('subject_show', { 'slug': subject.slug }) }}">{{ subject.name }}</a>
+            </li>
+        {% endfor %}
+    </ol>
+</div>
