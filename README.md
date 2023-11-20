@@ -1,4 +1,4 @@
-# Kope alias Ventalis
+# Ventalis
 
 ## Description
 
