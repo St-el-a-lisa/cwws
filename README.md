@@ -11,7 +11,7 @@ Avant de déployer localement, assurez-vous d'avoir installé les outils suivant
 - PHP
 - Composer
 - Symfony CLI
-- ...
+- webpack
 
 ## Installation
 
