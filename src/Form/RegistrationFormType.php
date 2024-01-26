@@ -27,14 +27,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr'=>['class'=>'form-control', 'placeholder' =>'Et votre email']
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
+
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -42,7 +35,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password','placeholder' =>'Indiquez un mot de passe'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Merci d\'entrer un mot de passe ',
                     ]),
                     new Length([
                         'min' => 8,
@@ -53,6 +46,14 @@ class RegistrationFormType extends AbstractType
                     new Regex([
                         'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/',
                         'message' => 'Votre mot de passe doit être composé d\'au moins une majuscule, une minuscule, un chiffre et un caractère spécial(&!%$...).',
+                    ]),
+                ],
+            ])
+            ->add('RGPDConsent', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'Merci pour votre consentement.',
                     ]),
                 ],
             ])

@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="main-body p-5">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src={{asset('media/user.png')}} alt="user" class="rounded-circle" width="150">
+                <div class="mt-3">
+                  {# {% if userExist == 1 %} #}
+                  {# <h4>Hey {{username}}!</h4> #}
+                  <h4> Hey You! </h4>
+                  {# {% endif %} #}
+                  <p class="text-muted font-size-sm">Café préféré</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="d-flex flex-column text-center">
+            <div class="mt-3">
+              <h4> Mon contact Ventalis </h4>
+              <p class="text-muted font-size-sm">Monsieur/Madame</p>
+            </div>
+          </div>
+        </div> 
+      </div>
+
+      <div class="card mt-3">
+        <button class="btn btn-outline-secondary">Contacter</button>
+      </div>
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="d-flex flex-column">
+            <div class="mt-3">
+              <h4> Dernier Message</h4>
+              <p class="text-muted font-size-sm">Monsieur/Madame</p>
+            </div>
+          </div>
+        </div> 
+      </div> 
+    </div>
+
+      
+    <div class="col-md-8">
+    {# {% if userExist == 1 %} #}
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Full Name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+            {# {{username}} #}
+            </div>
+          </div>
+            <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+            {# {{email}} #}
+            </div>
+          </div>
+            <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Phone</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+               +33 1 42 86 57 06
+            </div>
+          </div>
+            <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Mobile</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              +33 1 42 86 57 06
+            </div>
+          </div>
+            <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Address</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              8 bis Rue de la Fontaine au Roi, 75011 Paris, France
+            </div>
+          </div>
+            <hr>
+          <div class="row">
+            <div class="col-sm-12">
+              <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+            </div>
+          </div>
+        </div>
+        {# {% endif %} #}
+      </div>
+
+      <div class="row gutters-sm">
+        <div class="col-sm-6 mb-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3">Dernière commande</h6>
+              <small>Date</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3">Commande en Cours</h6>
+              <small>Date</small>
+              <small>Statut</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,9 +1,3 @@
 controllers:
-<<<<<<< HEAD
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-=======
     resource: ../src/Controller/
->>>>>>> 837e61fa45bd928bdda3fad299c9928d7263ddfd
     type: attribute

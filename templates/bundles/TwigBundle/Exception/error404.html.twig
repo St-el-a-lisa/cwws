@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<a href="#" class="nav-link px-2 link-body-emphasis">
+		<img src={{asset('media/errors/error404.png')}} alt="error 404"></img>
+</a>
+
+
+<h4>The requested page couldn't be located. Checkout for any URL misspelling or
+	<a href="{{ path('app_home') }}">return to the homepage</a>.
+</h4>{% endblock %}

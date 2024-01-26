@@ -94,9 +94,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Admin','fas fa-newspaper');
         yield MenuItem::section('Users');
 
-        yield MenuItem::subMenu('Articles', 'fas fa-bars')->setSubItems([
+        yield MenuItem::subMenu('Staff', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Add +', 'fas fa-pen-nib', User::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('All articles', 'fas fa-newspaper', User::class),
+            MenuItem::linkToCrud('Tout le Staff', 'fas fa-newspaper', User::class),
                
         ]);
     }
