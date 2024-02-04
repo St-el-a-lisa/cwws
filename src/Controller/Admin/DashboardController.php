@@ -22,18 +22,18 @@ class DashboardController extends AbstractDashboardController
 
     public function __construct(
         private AdminUrlGenerator $adminUrlGenerator
-    ) {}
+    ) {
+    }
 
 
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $url = $this->adminUrlGenerator 
+        $url = $this->adminUrlGenerator
             ->setController(ProductCrudController::class)
             ->generateUrl();
-        
-        return $this ->redirect($url);
 
+        return $this->redirect($url);
     }
 
     public function configureDashboard(): Dashboard
@@ -46,7 +46,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Go sur le site!', 'fa fa-undo', 'app_home');
 
-        yield MenuItem::section('Ecommerce','fas fa-store');
+        yield MenuItem::section('Ecommerce', 'fas fa-store');
         yield MenuItem::section('Produits');
 
         yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
@@ -76,28 +76,31 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Subjects list', 'fas fa-list', Subject::class),
         ]);
 
-        yield MenuItem::section('Navigation', 'fas fa-route');
+        yield MenuItem::section('Navigation du Blog', 'fas fa-route');
 
 
         yield MenuItem::subMenu('Menus', 'fas fa-list')->setSubItems([
             MenuItem::linkToCrud('Pages', 'fas fa-file', Menu::class)
-            ->setQueryParameter('submenuIndex',0),
+                ->setQueryParameter('submenuIndex', 0),
             MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Menu::class)
-            ->setQueryParameter('submenuIndex',1),
+                ->setQueryParameter('submenuIndex', 1),
             MenuItem::linkToCrud('Liens personnalisés', 'fas fa-link', Menu::class)
-            ->setQueryParameter('submenuIndex',2),
+                ->setQueryParameter('submenuIndex', 2),
             MenuItem::linkToCrud('Sujets', 'fab fa-delicious', Menu::class)
-            ->setQueryParameter('submenuIndex',3),
+                ->setQueryParameter('submenuIndex', 3),
 
         ]);
 
-        yield MenuItem::section('Admin','fas fa-newspaper');
-        yield MenuItem::section('Users');
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        yield MenuItem::subMenu('Staff', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Add +', 'fas fa-pen-nib', User::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Tout le Staff', 'fas fa-newspaper', User::class),
-               
-        ]);
+            yield MenuItem::section('Admin', 'fas fa-newspaper');
+            yield MenuItem::section('Users');
+
+            yield MenuItem::subMenu('Staff', 'fas fa-bars')->setSubItems([
+                MenuItem::linkToCrud('Add +', 'fas fa-pen-nib', User::class)->setAction(Crud::PAGE_NEW),
+                MenuItem::linkToCrud('Tout le Staff', 'fas fa-newspaper', User::class),
+
+            ]);
+        }
     }
 }

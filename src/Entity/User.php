@@ -40,9 +40,25 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $matricule = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $active = null;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Adress::class)]
+    private Collection $Useradresses;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->Useradresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,7 +140,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         ));
     }
 
-    public function unserialize($serialised): void 
+    public function unserialize($serialised): void
     {
         list(
             $this->id,
@@ -184,6 +200,84 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?int
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?int $matricule): static
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adress>
+     */
+    public function getUseradresses(): Collection
+    {
+        return $this->Useradresses;
+    }
+
+    public function addUseradress(Adress $useradress): static
+    {
+        if (!$this->Useradresses->contains($useradress)) {
+            $this->Useradresses->add($useradress);
+            $useradress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUseradress(Adress $useradress): static
+    {
+        if ($this->Useradresses->removeElement($useradress)) {
+            // set the owning side to null (unless already changed)
+            if ($useradress->getUser() === $this) {
+                $useradress->setUser(null);
+            }
+        }
 
         return $this;
     }

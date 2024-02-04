@@ -1,3 +1,5 @@
 {% for product in products %}
-	{% include 'products/item.html.twig' with { product} %}
+	<div class="row row-cols-1">
+		{% include 'products/item.html.twig' with { product} %}
+	</div>
 {% endfor %}

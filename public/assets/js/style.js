@@ -1,4 +1,4 @@
-const { async } = require("regenerator-runtime");
+// import { async } from "regenerator-runtime/runtime";
 // import { async } from "regenerator-runtime";
 
 //evenement sur la NavBar au moment du scroll

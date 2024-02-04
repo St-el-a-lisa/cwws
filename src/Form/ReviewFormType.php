@@ -17,17 +17,17 @@ class ReviewFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content', TextareaType::class , [
-                'label'=>'Votre message'
+            ->add('content', TextareaType::class, [
+                'label' => 'Votre avis'
             ])
             ->add('product', HiddenType::class)
             ->add('send', SubmitType::class, [
                 'label' => 'Envoyer'
             ]);
-        $builder ->get('product')
+        $builder->get('product')
             ->addModelTransformer(new CallbackTransformer(
-                fn (Product $product)=> $product->getId(), 
-                fn (Product $product)=> $product->getName()
+                fn (Product $product) => $product->getId(),
+                fn (Product $product) => $product->getName()
             ));
     }
 

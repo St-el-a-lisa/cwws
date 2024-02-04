@@ -1,29 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription
+{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
 
-    <h1>Inscription</h1>
+	<h1>Inscription</h1>
 
-    {{ form_errors(registrationForm) }}
+	{{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
+	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.username) }}
+	{{ form_row(registrationForm.email) }}
+	{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
 
-        {{ form_errors(registrationForm.plainPassword) }}
-         </br>
+	{{ form_errors(registrationForm.plainPassword) }}
+</br>
 
-        {{ form_widget(registrationForm.RGPDConsent) }}
-        <p> Je reconnais avoir lu et accepté la <a href="{{path('charte')}}">charte de confidentialité</a>.</p>
+{{ form_widget(registrationForm.Consent) }}
+<p>
+	Je reconnais avoir lu et accepté la
+	<a href="{{path('charte')}}">charte de confidentialité</a>.</p>
 
-        <button type="submit" class="btn btn-secondary">Inscription</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+<button type="submit" class="btn btn-secondary">Inscription</button>
+{{ form_end(registrationForm) }}{% endblock %}

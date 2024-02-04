@@ -21,18 +21,18 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username',TextType::class, [
-                'attr'=>['class'=>'form-control', 'placeholder' =>'Merci d\'indiquer votre nom']
-                ])
+            ->add('username', TextType::class, [
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Merci d\'indiquer votre nom']
+            ])
             ->add('email', EmailType::class, [
-                'attr'=>['class'=>'form-control', 'placeholder' =>'Et votre email']
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Et votre email']
             ])
 
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password','placeholder' =>'Indiquez un mot de passe'],
+                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Indiquez un mot de passe'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci d\'entrer un mot de passe ',
@@ -49,15 +49,14 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('RGPDConsent', CheckboxType::class, [
+            ->add('Consent', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Merci pour votre consentement.',
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
