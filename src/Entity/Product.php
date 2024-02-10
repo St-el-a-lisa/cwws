@@ -36,7 +36,7 @@ class Product implements TimestampedInterface
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $price = null;
+    private ?float $price = null;
 
     #[ORM\Column]
     private ?bool $active = null;
@@ -50,10 +50,19 @@ class Product implements TimestampedInterface
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
 
+    #[ORM\ManyToMany(targetEntity: Cart::class, mappedBy: 'product')]
+    private Collection $carts;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Stock::class)]
+    private Collection $stocks;
+
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->carts = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,6 +236,63 @@ class Product implements TimestampedInterface
     }
     public function __toString()
     {
-    return $this->getName(); 
+        return $this->getName();
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): static
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): static
+    {
+        if ($this->carts->removeElement($cart)) {
+            $cart->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): static
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks->add($stock);
+            $stock->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): static
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getProduct() === $this) {
+                $stock->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 }

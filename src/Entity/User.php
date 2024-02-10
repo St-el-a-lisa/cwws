@@ -53,12 +53,17 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     private ?bool $active = null;
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Adress::class)]
-    private Collection $Useradresses;
+    private Collection $useradresses;
+
+    #[ORM\OneToOne(mappedBy: 'sender', cascade: ['persist', 'remove'])]
+    private ?Messaging $messaging = null;
+
+
 
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
-        $this->Useradresses = new ArrayCollection();
+        $this->useradresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -257,13 +262,13 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
      */
     public function getUseradresses(): Collection
     {
-        return $this->Useradresses;
+        return $this->useradresses;
     }
 
     public function addUseradress(Adress $useradress): static
     {
-        if (!$this->Useradresses->contains($useradress)) {
-            $this->Useradresses->add($useradress);
+        if (!$this->useradresses->contains($useradress)) {
+            $this->useradresses->add($useradress);
             $useradress->setUser($this);
         }
 
@@ -272,12 +277,29 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
 
     public function removeUseradress(Adress $useradress): static
     {
-        if ($this->Useradresses->removeElement($useradress)) {
+        if ($this->useradresses->removeElement($useradress)) {
             // set the owning side to null (unless already changed)
             if ($useradress->getUser() === $this) {
                 $useradress->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMessaging(): ?Messaging
+    {
+        return $this->messaging;
+    }
+
+    public function setMessaging(Messaging $messaging): static
+    {
+        // set the owning side of the relation if necessary
+        if ($messaging->getSender() !== $this) {
+            $messaging->setSender($this);
+        }
+
+        $this->messaging = $messaging;
 
         return $this;
     }

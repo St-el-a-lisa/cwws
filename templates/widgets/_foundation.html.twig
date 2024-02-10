@@ -1,23 +1,28 @@
 <div class="p-4">
-    <h4 class="fst-italic">L'association du mois :  </h4>
-        <div class="p-4 d-flex justify-content-center">
-        <a class="link-dark" href="https://www.cafefemenino.com/" target="_blank">
-        <img src={{asset('media/marketing/CF_foundation.png')}} alt="fundation"  role="instagram">
-        </img></a>
-        </div>
-        
-        {% for subject in subjects %}
-    {% if subject.name == 'Association' %} {# Assurez-vous que 'Association' est le nom exact de votre sujet associé à une association #}
-        <ul>
-            {% for article in subject.articles %}
-            <div class="text-decoration-none" id="articles-list">
-            {{ article.featuredText}}
-            </div>
-            {% endfor %}
-        </ul>
-    {% endif %}
+	<h4 class="fst-italic">L'association du mois :
+	</h4>
+	<div class="p-4 d-flex justify-content-center">
+		<a class="link-dark" href="https://www.cafefemenino.com/" target="_blank">
+			<img src={{asset('media/marketing/CF_foundation.png')}} alt="fundation" role="instagram">
+		</img>
+	</a>
+</div>
+
+{% for subject in subjects %}
+	{% if subject.name == 'Association' %}
+		{# Assurez-vous que 'Association' est le nom exact de votre sujet associé à une association #}
+		<ul>
+			{% for article in subject.articles %}
+				<div class="text-decoration-none" id="articles-list">
+					{{ article.featuredText}}
+				</div>
+			{% endfor %}
+		</ul>
+	{% endif %}
 {% endfor %}
 <div class="p-4 d-flex justify-content-center">
-        <h5 class="fst-italic">Plus d'infos sur notre blog</h5>
-        </div>
-</div>
+	<a class="link-dark" href="{{path('app_home_blog')}}" target="_blank">
+		<h5 class="fst-italic">Plus d'infos sur notre blog</h5>
+	</a>
+
+</div></div>

@@ -91,16 +91,16 @@ class DashboardController extends AbstractDashboardController
 
         ]);
 
-        if ($this->isGranted('ROLE_ADMIN')) {
+        // if ($this->isGranted('ROLE_ADMIN')) {
 
-            yield MenuItem::section('Admin', 'fas fa-newspaper');
-            yield MenuItem::section('Users');
+        yield MenuItem::section('Admin', 'fas fa-newspaper');
+        yield MenuItem::section('Users');
 
-            yield MenuItem::subMenu('Staff', 'fas fa-bars')->setSubItems([
-                MenuItem::linkToCrud('Add +', 'fas fa-pen-nib', User::class)->setAction(Crud::PAGE_NEW),
-                MenuItem::linkToCrud('Tout le Staff', 'fas fa-newspaper', User::class),
+        yield MenuItem::subMenu('Staff', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Add +', 'fas fa-pen-nib', User::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Tout le Staff', 'fas fa-newspaper', User::class),
 
-            ]);
-        }
+        ]);
     }
+    // }
 }

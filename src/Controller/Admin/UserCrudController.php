@@ -65,37 +65,37 @@ class UserCrudController extends AbstractCrudController
                 'constraints' => [
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Votre mot de passe doit comporter {{ limit }} caractères minimum.',
+                        'minMessage' => 'Le mot de passe doit comporter {{ limit }} caractères minimum.',
                         'max' => 4096,
                     ]),
                     new Regex([
                         'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/',
-                        'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial(&!%$...).',
+                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial(&!%$...).',
                     ]),
                 ],
             ]);
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
-    {
-        $user = $entityInstance;
+    // public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    // {
+    //     $user = $entityInstance;
 
-        $plainPassword = $user->getPassword();
-        $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
+    //     $plainPassword = $user->getPassword();
+    //     $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
 
-        $user->setPassword($hashedPassword);
-        parent::persistEntity($entityManager, $entityInstance);
-    }
+    //     $user->setPassword($hashedPassword);
+    //     parent::persistEntity($entityManager, $entityInstance);
+    // }
 
-    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
-    {
-        $userId = $this->getUser()->getId();
+    // public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    // {
+    //     $userId = $this->getUser()->getId();
 
-        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
+    //     $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
 
-        $qb->andWhere($qb->expr()->neq('entity.id', ':userId'))
-            ->setParameter('userId', $userId);
+    //     $qb->andWhere($qb->expr()->neq('entity.id', ':userId'))
+    //         ->setParameter('userId', $userId);
 
-        return $qb;
-    }
+    //     return $qb;
+    // }
 }
