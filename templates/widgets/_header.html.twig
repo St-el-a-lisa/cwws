@@ -1,4 +1,4 @@
-{% if is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_ADMIN')or is_granted('ROLE_AUTHOR') or is_granted('ROLE_VENDOR') %}
 	<div class="py-2 bg-dark border-bottom">
 		<div class="container d-flex flex-wrap">
 			<div class="dropdown">
