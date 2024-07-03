@@ -36,38 +36,52 @@
 
 <div class="myheader">
 	<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start p-3">
+		<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+			<img src={{asset('media/nav/premier_logo_gras_CwWS.png')}} class="bi me-2" width="40" height="32" role="logo" aria-label="Bootstrap">
+				<use xlink:href="#bootstrap"></use>
+			</img>
+		</a>
 		<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 			<li>
-				<a href="{{path('app_home')}}" class="nav-link px-2 link-secondary">Accueil</a>
+				<a href="{{path('app_home')}}" class="nav-link px-2 link-secondary">Home</a>
 			</li>
 			<li>
-				<a href="{{path('app_products')}}" class="nav-link px-2 link-body-emphasis">Nos Cafés</a>
+				<a href="{{path('app_products')}}" class="nav-link px-2 link-body-emphasis">Style Stories</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link px-2 link-body-emphasis">Machines</a>
+				<a href="{{path('app_home')}}" class="nav-link px-2 link-body-emphasis">Trend Tonic</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link px-2 link-body-emphasis">Accessoires</a>
+				<a href="#" class="nav-link px-2 link-body-emphasis">Kintsugi Time</a>
 			</li>
 			<li>
-				<a href="{{path('app_home_blog')}}" class="nav-link px-2 link-body-emphasis">Blog</a>
+				<a href="#" class="nav-link px-2 link-body-emphasis">Gemscaping</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link px-2 link-body-emphasis">Contact</a>
+				<a href="#" class="nav-link px-2 link-body-emphasis">Interviews</a>
+			</li>
+			<li></li>
+			<li>
+				<a href="#" class="nav-link px-2 link-body-emphasis">Fashion Killa</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link px-2 link-body-emphasis">Coffee & Food
+				</a>
 			</li>
 		</ul>
 
 		<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 			<input type="search" class="form-control" placeholder="Search..." aria-label="Search">
 		</form>
+		<a href="{{path('app_shop')}}" class="nav-link px-2 link-body-emphasis">Konbini</a>
 
-		<a href="#" class="nav-link px-2 link-body-emphasis">
+		<a href="{{path('app_cart')}}" class="nav-link px-2 link-body-emphasis">
 			<img src={{asset('media/nav/panier.png')}} alt="panier" width="26" height="26" role="panier"></img>
 	</a>
 
 	<div class="dropdown text-end">
 		<a href="#" class="d-block link-dark text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-			<img src={{asset('media/nav/user.png')}} alt="mdo" width="28" height="28" class="rounded-circle">
+			<img src={{asset('media/nav/profil.png')}} alt="mdo" width="28" height="28" class="rounded-circle">
 		</a>
 
 		<ul class="dropdown-menu text-small">

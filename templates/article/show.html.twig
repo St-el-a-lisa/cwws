@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}
+	{{ article.title }}
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1 class="article-title">{{ article.title }}</h1>
-    <hr>
+	<div class="container">
+		<h1 class="article-title">{{ article.title }}</h1>
+		<hr>
 
-    {{ article.content|raw }}
-</div>
+		{{ article.content|raw }}
+	</div>
+
+	{% if app.user %}
+		{% include "article/commentForm.html.twig" %}
+	{% endif %}
+	{% include "article/comments.html.twig" %}
 
 {% endblock %}

@@ -1,0 +1,45 @@
+<section>
+	{% set reviewCount = reviews|length %}
+	<p>{{ reviewCount }}
+		Review(s)</p>
+
+	{% set totalRating = 0 %}
+	{% for review in reviews %}
+		{% set totalRating = totalRating + review.rating %}
+	{% endfor %}
+
+	{% if reviewCount > 0 %}
+		{% set averageRating = totalRating / reviewCount %}
+		<p>Moyenne des notes :
+			{{ averageRating|number_format(1, '.', ',') }}/5</p>
+	{% endif %}
+
+	{% for review in reviews %}
+		<div class="container mb-2">
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-10 col-lg-9 col-xl-8">
+					<div class="card card-row shadow-light-lg">
+						<div class="row gx-0">
+							<div class="card-body">
+								<blockquote class="mb-0 text-center">
+									<p>{{ review.rating }}</p>
+									<p>{{ review.content }}</p>
+									<footer class="blockquote-footer">
+										<span class="h6 text-uppercase">
+											Par
+											{{ review.user }}
+											le
+											{{ review.createdAt|date('d/m/Y')}}
+										</span>
+									</footer>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<p>Aucun avis disponible.</p>
+	{% endfor %}
+</section>

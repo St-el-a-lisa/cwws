@@ -41,9 +41,13 @@ class Article implements TimestampedInterface
     #[ORM\ManyToOne]
     private ?Media $featuredImage = null;
 
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $commentList;
+
     public function __construct()
     {
         $this->subjects = new ArrayCollection();
+        $this->commentList = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +168,36 @@ class Article implements TimestampedInterface
 
     public function __toString(): string
     {
-        return $this-> title;
+        return $this->title;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getCommentList(): Collection
+    {
+        return $this->commentList;
+    }
+
+    public function addCommentList(Comment $commentList): static
+    {
+        if (!$this->commentList->contains($commentList)) {
+            $this->commentList->add($commentList);
+            $commentList->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentList(Comment $commentList): static
+    {
+        if ($this->commentList->removeElement($commentList)) {
+            // set the owning side to null (unless already changed)
+            if ($commentList->getArticle() === $this) {
+                $commentList->setArticle(null);
+            }
+        }
+
+        return $this;
     }
 }

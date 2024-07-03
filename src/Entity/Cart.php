@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CartRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
@@ -15,16 +16,21 @@ class Cart
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'carts')]
-    private Collection $product;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
+
+    #[ORM\OneToOne(inversedBy: 'cart', cascade: ['persist', 'remove'])]
+    private ?User $customer = null;
+
+    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartProduct::class)]
+    private Collection $cartProducts;
 
     public function __construct()
     {
-        $this->product = new ArrayCollection();
+        $this->cartProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -32,38 +38,68 @@ class Cart
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->user;
+        return $this->created_at;
     }
 
-    public function setUser(User $user): static
+    public function setCreatedAt(\DateTimeInterface $created_at): static
     {
-        $this->user = $user;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?User
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?User $customer): static
+    {
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, CartProduct>
      */
-    public function getProduct(): Collection
+    public function getCartProducts(): Collection
     {
-        return $this->product;
+        return $this->cartProducts;
     }
 
-    public function addProduct(Product $product): static
+    public function addCartProduct(CartProduct $cartProduct): static
     {
-        if (!$this->product->contains($product)) {
-            $this->product->add($product);
+        if (!$this->cartProducts->contains($cartProduct)) {
+            $this->cartProducts->add($cartProduct);
+            $cartProduct->setCart($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): static
+    public function removeCartProduct(CartProduct $cartProduct): static
     {
-        $this->product->removeElement($product);
+        if ($this->cartProducts->removeElement($cartProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($cartProduct->getCart() === $this) {
+                $cartProduct->setCart(null);
+            }
+        }
 
         return $this;
     }

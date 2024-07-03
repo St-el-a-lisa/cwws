@@ -3,15 +3,16 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+
 use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
-use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
@@ -39,8 +40,10 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
 
-        // IdField::new('id'),
+        yield IdField::new('id')->onlyOnDetail();
         yield TextField::new('username');
+        yield TextField::new('firstname')->onlyOnDetail();
+        yield TextField::new('lastname')->onlyOnDetail();
         yield NumberField::new('matricule');
         yield TextField::new('email');
         yield ChoiceField::new('roles')
@@ -53,7 +56,7 @@ class UserCrudController extends AbstractCrudController
             ->setChoices([
                 'Administrateur' => 'ROLE_ADMIN',
                 'Auteur' => 'ROLE_AUTHOR',
-                'Conseiller' => 'ROLE_VENDOR'
+                'Conseiller' => 'ROLE_VENDOR',
             ]);
         yield BooleanField::new('Active');
 
@@ -75,27 +78,15 @@ class UserCrudController extends AbstractCrudController
                 ],
             ]);
     }
-
-    // public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
-    // {
-    //     $user = $entityInstance;
-
-    //     $plainPassword = $user->getPassword();
-    //     $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
-
-    //     $user->setPassword($hashedPassword);
-    //     parent::persistEntity($entityManager, $entityInstance);
-    // }
-
-    // public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
-    // {
-    //     $userId = $this->getUser()->getId();
-
-    //     $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-
-    //     $qb->andWhere($qb->expr()->neq('entity.id', ':userId'))
-    //         ->setParameter('userId', $userId);
-
-    //     return $qb;
-    // }
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('roles')
+            ->add('matricule');
+    }
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
 }

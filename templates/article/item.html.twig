@@ -18,7 +18,7 @@
 					{{ article.title}}</a>
 			</h2>
 			<p>
-				{{ article.createdAt|date('d M Y') }}
+				{{ article.updatedAt|date('d M Y') }}
 			</p>
 			{{ article.featuredText ?: article.content|striptags|slice(0, 100)~'...'}}
 		</div>

@@ -14,7 +14,11 @@ function updateNavbarBackground() {
   }
 }
 window.addEventListener("scroll", updateNavbarBackground);
-//
+//meteo
+
+//panier
+
+//Ajax a refaire
 
 document.addEventListener("DOMContentLoaded", () => {
   new App();

@@ -18,11 +18,11 @@ class CategoryCrudController extends AbstractCrudController
         return Category::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
-        
-        yield IdField::new('id')->hideOnForm();
+
+        yield IdField::new('id')->onlyOnDetail();
         yield TextField::new('name');
 
         yield SlugField::new('slug')->setTargetFieldName('name');
@@ -30,21 +30,18 @@ class CategoryCrudController extends AbstractCrudController
 
         yield DateTimeField::new('CreatedAt')->hideOnForm();
         yield DateTimeField::new('UpdatedAt')->hideOnForm();
-        
     }
 
 
 
-    public function deleteEntity(EntityManagerInterface $em, $entityInstance): void
-    {
-        if (!$entityInstance instanceof Category) return; 
+    // public function deleteEntity(EntityManagerInterface $em, $entityInstance): void
+    // {
+    //     if (!$entityInstance instanceof Category) return;
 
-        foreach($entityInstance->getProducts() as $product){
-            $em->remove($product);
-        }
+    //     foreach ($entityInstance->getProducts() as $product) {
+    //         $em->remove($product);
+    //     }
 
-        parent::deleteEntity($em, $entityInstance);
-
-    }
-    
+    //     parent::deleteEntity($em, $entityInstance);
+    // }
 }

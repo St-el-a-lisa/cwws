@@ -1,59 +1,101 @@
 <div class="container">
-  <footer class="py-4">
-    <div class="row border-top pt-3">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
+	<footer class="py-4">
+		<div class="row border-top pt-3">
+			<div class="col-6 col-md-2 mb-3">
+				<h5>Shop</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">A propos</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Notre Histoire</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">FAQs</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Plan du site</a>
+					</li>
 
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
 
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
+				</ul>
+			</div>
 
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>Inscrivez vous à la Newsletter</h5>
-          <p>Pour être premier sur les nouveautés et un code promo pour la première commande</p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">Email address</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-secondary" type="button">Subscribe</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top footer-bg-image">
-      {# <p class="ms-3">© 2023 Ventalis Company, Inc. All rights reserved.</p> #}
-      <span class="ms-3 copyright">©{{"now"|date("Y")}} Ventalis Company, Inc. All rights reserved</span>
-      <ul class="list-unstyled d-flex me-3">
-        <li class="ms-3"><a class="link-dark" href="#"><img src={{asset('media/rs/instagram.png')}} alt="instagram" width="26" height="26" role="instagram"><use xlink:href="#instagram"></use></img></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><img src={{asset('media/rs/twitter-x-logo.png')}} alt="X-twitter" width="24" height="24" role="twitter"><use xlink:href="twitter"></use></img></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><img src={{asset('media/rs/facebook.png')}} alt="facebook" width="26" height="26" role="facebook"><use xlink:href="#facebook"></use></img></a></li>
-      </ul>
-  </div>
-</footer>
+			<div class="col-6 col-md-2 mb-3">
+				<h5>Blog</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item mb-2">
+						<a href="{{path('app_home')}}" class="nav-link p-0 text-muted">Home</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">L'association du mois</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Nos recettes</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Les événements</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-6 col-md-2 mb-3">
+				<h5>More on Mobile!
+				</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Mobile appli (SOON)</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Suivi commande</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Livraisons et retour</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Assistance</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-md-5 offset-md-1 mb-3">
+				<form>
+					<h5>Inscrivez vous à la Newsletter</h5>
+					<p>Pour être premier sur les nouveautés et un code promo pour la première commande</p>
+					<div class="d-flex flex-column flex-sm-row w-100 gap-2">
+						<label for="newsletter1" class="visually-hidden">Email address</label>
+						<input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+						<button class="btn btn-secondary" type="button">Subscribe</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top footer-bg-image">
+		<span class="ms-3 copyright">©{{"now"|date("Y")}}
+			Coffe with Wabi Sabi Company, Inc. All rights reserved</span>
+		<ul class="list-unstyled d-flex me-3">
+			<li class="ms-3">
+				<a class="link-dark" href="#">
+					<img src={{asset('media/rs/instagram.png')}} alt="instagram" width="26" height="26" role="instagram">
+						<use xlink:href="#instagram"></use>
+					</img>
+				</li>
+			</a>
+		</li>
+		<li class="ms-3">
+			<a class="link-dark" href="#">
+				<img src={{asset('media/rs/twitter-x-logo.png')}} alt="X-twitter" width="24" height="24" role="twitter">
+					<use xlink:href="twitter"></use>
+				</img>
+			</li>
+		</a>
+	</li>
+	<li class="ms-3">
+		<a class="link-dark" href="#">
+			<img src={{asset('media/rs/facebook.png')}} alt="facebook" width="26" height="26" role="facebook">
+				<use xlink:href="#facebook"></use>
+			</img>
+		</li>
+	</a>
+</li></ul></div></footer>

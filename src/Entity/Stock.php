@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\StockRepository;
+use App\Model\TimestampedInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
-class Stock
+class Stock implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,6 +26,9 @@ class Stock
 
     #[ORM\ManyToOne(inversedBy: 'stocks')]
     private ?Product $product = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
 
     public function getId(): ?int
     {
@@ -77,5 +81,21 @@ class Stock
         $this->product = $product;
 
         return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->quantity;
     }
 }

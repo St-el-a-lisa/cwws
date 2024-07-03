@@ -26,13 +26,7 @@ class Order
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $OrderNotes = null;
 
-    #[ORM\ManyToMany(targetEntity: Payment::class, mappedBy: 'linkedOrder')]
-    private Collection $payments;
 
-    public function __construct()
-    {
-        $this->payments = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -71,33 +65,6 @@ class Order
     public function setOrderNotes(?string $OrderNotes): static
     {
         $this->OrderNotes = $OrderNotes;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Payment>
-     */
-    public function getPayments(): Collection
-    {
-        return $this->payments;
-    }
-
-    public function addPayment(Payment $payment): static
-    {
-        if (!$this->payments->contains($payment)) {
-            $this->payments->add($payment);
-            $payment->addLinkedOrder($this);
-        }
-
-        return $this;
-    }
-
-    public function removePayment(Payment $payment): static
-    {
-        if ($this->payments->removeElement($payment)) {
-            $payment->removeLinkedOrder($this);
-        }
 
         return $this;
     }

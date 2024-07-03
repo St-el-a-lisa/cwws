@@ -15,13 +15,13 @@
 				{% endif %}
 				<h5 class="card-title">{{product.name}}</h5>
 				<h6 class="card-subtitle mb-2 text-body-secondary">Prix :
-					{{product.price}}€</h6>
+					{{product.price/100}}€</h6>
 				{{ product.featuredText ?: product.description|striptags|slice(0, 130 ) ~'...'}}
 
 				<div class='d-flex justify-content-between'>
 					<a href="{{product_show}}" class="btn btn-outline-secondary">
 						Afficher produit</a>
-					<a href="#" class="btn btn-sm btn-light"><img src={{asset('media/nav/panier.png')}} alt="ajout_panier" style="vertical-align: middle;" width="30" height="30"></a>
+					<a href="{{path('app_cart', {'id': product.id})}}" class="btn btn-sm btn-light"><img src={{asset('media/nav/panier.png')}} alt="ajout_panier" style="vertical-align: middle;" width="30" height="30"></a>
 				</div>
 			</div>
 		</div>

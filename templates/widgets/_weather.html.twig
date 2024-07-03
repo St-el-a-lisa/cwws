@@ -1,0 +1,37 @@
+<div class="container px-4 py-5">
+	<h2 class="pb-2 border-bottom">Weather</h2>
+
+	<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+		<div class="col">
+
+
+			<p class="mb-0">Beta version</p>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="visual">
+				<img src={{asset('media/marketing/meteo.png')}} class="rounded mx-auto d-block" alt="meteo">
+			</div>
+			<form>
+				<div class="form-group">
+					<input type="text" class="form-control" id="inputCity" placeholder="Choisissez une ville"/>
+
+					<button type="submit" class="btn btn-secondary btn-block">
+						Rechercher
+					</button>
+				</div>
+			</form>
+
+			<div class="box-container">
+				<div id="city" class="box"></div>
+				<div id="temp" class="box"></div>
+				<div id="humidity" class="box"></div>
+				<div id="wind" class="box"></div>
+				<div id="coldOrHot" class="box"></div>
+			</div>
+
+
+		</div>
+	</div>
+</div>

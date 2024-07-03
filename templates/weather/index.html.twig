@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Weather
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<div class="weather">
+			<div class="p-4 mb-3 bg-body-light rounded">
+				<h3 class="fst-italic">Weather :</h3>
+				<p class="mb-0">Beta version</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<form>
+					<div class="form-group">
+						<input type="text" class="form-control" id="inputCity" placeholder="Choisissez une ville"/>
+
+						<button type="submit" class="btn btn-secondary btn-block">
+							Rechercher
+						</button>
+					</div>
+				</form>
+
+				<div class="box-container">
+					<div id="city" class="box"></div>
+					<div id="temp" class="box"></div>
+					<div id="humidity" class="box"></div>
+					<div id="wind" class="box"></div>
+					<div id="coldOrHot" class="box"></div>
+				</div>
+
+
+			</div>
+		</div>
+		<script src="{{ asset('assets/js/style.js') }}"></script>
+	</main>
+{% endblock %}

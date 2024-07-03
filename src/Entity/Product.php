@@ -47,22 +47,27 @@ class Product implements TimestampedInterface
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
     private Collection $categories;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Review::class, orphanRemoval: true)]
-    private Collection $reviews;
 
-    #[ORM\ManyToMany(targetEntity: Cart::class, mappedBy: 'product')]
-    private Collection $carts;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Stock::class)]
     private Collection $stocks;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $reviews;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartProduct::class)]
+    private Collection $cartProducts;
+
+
+
 
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
-        $this->carts = new ArrayCollection();
         $this->stocks = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->cartProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,6 +210,58 @@ class Product implements TimestampedInterface
         return $this;
     }
 
+
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): static
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks->add($stock);
+            $stock->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): static
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getProduct() === $this) {
+                $stock->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    public function getTotalStock(): int
+    {
+        $totalStock = 0;
+        /** @var Stock $stock */
+        foreach ($this->stocks as $stock) {
+            $totalStock += $stock->getQuantity();
+        }
+        return $totalStock;
+    }
+
     /**
      * @return Collection<int, Review>
      */
@@ -234,62 +291,31 @@ class Product implements TimestampedInterface
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->getName();
-    }
 
     /**
-     * @return Collection<int, Cart>
+     * @return Collection<int, CartProduct>
      */
-    public function getCarts(): Collection
+    public function getCartProducts(): Collection
     {
-        return $this->carts;
+        return $this->cartProducts;
     }
 
-    public function addCart(Cart $cart): static
+    public function addCartProduct(CartProduct $cartProduct): static
     {
-        if (!$this->carts->contains($cart)) {
-            $this->carts->add($cart);
-            $cart->addProduct($this);
+        if (!$this->cartProducts->contains($cartProduct)) {
+            $this->cartProducts->add($cartProduct);
+            $cartProduct->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeCart(Cart $cart): static
+    public function removeCartProduct(CartProduct $cartProduct): static
     {
-        if ($this->carts->removeElement($cart)) {
-            $cart->removeProduct($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Stock>
-     */
-    public function getStocks(): Collection
-    {
-        return $this->stocks;
-    }
-
-    public function addStock(Stock $stock): static
-    {
-        if (!$this->stocks->contains($stock)) {
-            $this->stocks->add($stock);
-            $stock->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStock(Stock $stock): static
-    {
-        if ($this->stocks->removeElement($stock)) {
+        if ($this->cartProducts->removeElement($cartProduct)) {
             // set the owning side to null (unless already changed)
-            if ($stock->getProduct() === $this) {
-                $stock->setProduct(null);
+            if ($cartProduct->getProduct() === $this) {
+                $cartProduct->setProduct(null);
             }
         }
 

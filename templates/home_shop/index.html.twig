@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<div class="row g-5">
+
+			<div class="row g-5">
+				<div class="col-xl-8">
+					<h3 class="pb-4 mb-4 fst-italic border-bottom">QUELQUES PRODUITS :
+					</h3>
+					<div id="produt-list">
+						{% include 'products/list.html.twig' with { products } %}
+					</div>
+				</div>
+				<div class="col-xl-4">
+					<div class="position-sticky" style="top: 2rem;">
+						{% include 'widgets/_about.html.twig' %}
+						{% include 'widgets/_subjects.html.twig' %}
+					</div>
+				</div>
+			</div>
+		</main>
+	{% endblock %}

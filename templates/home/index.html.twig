@@ -8,55 +8,58 @@
 	{% block container %}
 		<main class="container">
 			<div class="row g-5">
-				<div class="col-xl-8">
-					<h3 class="pb-4 mb-4 fst-italic border-bottom">QUELQUES PRODUITS :
-					</h3>
-					<div id="produt-list">
-						{% include 'products/list.html.twig' with { products } %}
+				<div class="col-md-8">
+
+					<h2 class="pb-4 mb-4 fst-italic border-bottom">Recent posts</h2>
+					<div id="articles-list">
+
+						{% include 'article/list.html.twig' with { articles: articles, leftCol: 5, rightCol: 7 } %}
 					</div>
 				</div>
+
 				<div class="col-xl-4">
 					<div class="position-sticky" style="top: 2rem;">
-						{% include 'widgets/_categories.html.twig' %}
+						{% include 'widgets/_subjects.html.twig' %}
+
+						{# {% include 'widgets/_foundation.html.twig' %} #}
 						{% include 'widgets/_about.html.twig' %}
-						{% include 'widgets/_foundation.html.twig' %}
+
+						{% include 'widgets/_archives.html.twig' %}
 					</div>
 				</div>
 			</div>
 		</main>
 
-		<div class="container marketing">
-			<div class="row">
-				<div class="col-lg-4">
-					<img class="rounded-circle" src="{{asset('media/marketing/shipping.png')}}" alt="Generic placeholder image" width="140" height="140">
-					<h2>Frais de port</h2>
-					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-					<p>
-						<a class="btn btn-secondary" href="#" role="button">View details »</a>
-					</p>
-				</div>
-				<!-- /.col-lg-4 -->
-				<div class="col-lg-4">
-					<img class="rounded-circle" src="{{asset('media/marketing/package_ecolo_800.png')}}" alt="Generic placeholder image" width="140" height="140">
-					<h2>Engagement Environnementale</h2>
-					<p>Nos emballages sont fabriqués à partir de matériaux recyclés, réduisant ainsi notre empreinte carbone et préservant les ressources naturelles.</p>
-				</br>
-				Avec nous, vous soutenez l'économie circulaire en favorisant le recyclage et la réutilisation des matériaux
-			</p>
-			<p>
-				<a class="btn btn-secondary" href="#" role="button">View details »</a>
-			</p>
-		</div>
+		{# <div class="container marketing">
+															<div class="row">
+																<div class="col-lg-4">
+																	<img class="rounded-circle" src="{{asset('media/marketing/shipping.png')}}" alt="Generic placeholder image" width="140" height="140">
+																	<h2>Frais de port</h2>
+																	<p>Nous prenons soin de la Terre en choisissant des options d'expédition à faible émission de CO2 pour réduire notre impact sur l'environnement. Avec nous, bénéficiez de frais de port respectueux de la planète, qui contribuent à préserver notre écosystème.</p>
+																</br>
+																Votre achat soutient notre engagement en faveur de pratiques durables et de livraisons responsables.</p>
+															<p>
+																<a class="btn btn-secondary" href="#" role="button">View details »</a>
+															</p>
+														</div>
+														<!-- /.col-lg-4 -->
+														<div class="col-lg-4">
+															<img class="rounded-circle" src="{{asset('media/marketing/package_ecolo_800.png')}}" alt="Generic placeholder image" width="140" height="140">
+															<h2>Engagement Environnementale</h2>
+															<p>Nos emballages sont fabriqués à partir de matériaux recyclés, réduisant ainsi notre empreinte carbone et préservant les ressources naturelles.</p>
+														</br>
+														Avec nous, vous soutenez l'économie circulaire en favorisant le recyclage et la réutilisation des matériaux
+													</p>
+													<p>
+														<a class="btn btn-secondary" href="#" role="button">View details »</a>
+													</p>
+												</div><!-- /.col-lg-4 --><div class="col-lg-4">
+													<img class="rounded-circle" src="{{asset('media/marketing/coffee-beans_happy2.png')}}" alt="Generic placeholder image" width="140" height="140">
+													<h2>Friendly spirit</h2>
+													<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+													<p>
+														<a class="btn btn-secondary" href="#" role="button">View details »</a>
+													</p>
+												</div> #}
 		<!-- /.col-lg-4 -->
-		<div class="col-lg-4">
-			<img class="rounded-circle" src="{{asset('media/marketing/coffee-beans_happy2.png')}}" alt="Generic placeholder image" width="140" height="140">
-			<h2>Friendly spirit</h2>
-			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-			<p>
-				<a class="btn btn-secondary" href="#" role="button">View details »</a>
-			</p>
-		</div>
-		<!-- /.col-lg-4 -->
-	</div>
-	<!-- /.row -->
-</div>{% endblock %}{% endblock %}
+	</div><!-- /.row --></div>{% endblock %}{% endblock %}

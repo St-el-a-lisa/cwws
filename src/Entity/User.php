@@ -31,8 +31,6 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class)]
-    private Collection $reviews;
 
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
@@ -52,18 +50,33 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
-    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Adress::class)]
-    private Collection $useradresses;
+
 
     #[ORM\OneToOne(mappedBy: 'sender', cascade: ['persist', 'remove'])]
     private ?Messaging $messaging = null;
 
 
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Adress::class)]
+    private Collection $adresses;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $reviews;
+
+    #[ORM\OneToOne(mappedBy: 'customer', cascade: ['persist', 'remove'])]
+    private ?Cart $cart = null;
+
+
+
+
     public function __construct()
     {
+        $this->adresses = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->reviews = new ArrayCollection();
-        $this->useradresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,9 +135,15 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
 
     public function setPassword(string $password): static
     {
+        $password = $this->hashPassword($password);
         $this->password = $password;
 
         return $this;
+    }
+
+    public function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 
     /**
@@ -155,35 +174,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         ) = unserialize($serialised);
     }
 
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
 
-    public function addReview(Review $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getUser() === $this) {
-                $review->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
@@ -257,35 +248,8 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         return $this;
     }
 
-    /**
-     * @return Collection<int, Adress>
-     */
-    public function getUseradresses(): Collection
-    {
-        return $this->useradresses;
-    }
 
-    public function addUseradress(Adress $useradress): static
-    {
-        if (!$this->useradresses->contains($useradress)) {
-            $this->useradresses->add($useradress);
-            $useradress->setUser($this);
-        }
 
-        return $this;
-    }
-
-    public function removeUseradress(Adress $useradress): static
-    {
-        if ($this->useradresses->removeElement($useradress)) {
-            // set the owning side to null (unless already changed)
-            if ($useradress->getUser() === $this) {
-                $useradress->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getMessaging(): ?Messaging
     {
@@ -300,6 +264,125 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         }
 
         $this->messaging = $messaging;
+
+        return $this;
+    }
+
+
+
+
+    /**
+     * @return Collection<int, Adress>
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdress(Adress $adress): static
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+            $adress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adress $adress): static
+    {
+        if ($this->adresses->removeElement($adress)) {
+            // set the owning side to null (unless already changed)
+            if ($adress->getUser() === $this) {
+                $adress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(?Cart $cart): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($cart === null && $this->cart !== null) {
+            $this->cart->setCustomer(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($cart !== null && $cart->getCustomer() !== $this) {
+            $cart->setCustomer($this);
+        }
+
+        $this->cart = $cart;
 
         return $this;
     }

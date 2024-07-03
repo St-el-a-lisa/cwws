@@ -31,8 +31,11 @@ class Adress
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Useradresses')]
+    #[ORM\ManyToOne(inversedBy: 'adresses')]
     private ?User $user = null;
+
+
+
 
     public function getId(): ?int
     {
