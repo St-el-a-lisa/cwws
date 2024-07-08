@@ -15,7 +15,6 @@ class UpdateProfilFormType extends AbstractType
         $builder
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class);
-        // Ajoutez d'autres champs de formulaire selon vos besoins
     }
 
     public function configureOptions(OptionsResolver $resolver)

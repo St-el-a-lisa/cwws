@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('no-reply@ventalis.com', 'No Reply'))
+                    ->from(new Address('no-reply@cwws.com', 'No Reply'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
@@ -87,8 +87,8 @@ class RegistrationController extends AbstractController
     public function updateProfil(Request $request,  EntityManagerInterface $entityManager)
 
     {
-        $user = $this->getUser(); // Obtenez l'utilisateur connecté
-        $form = $this->createForm(UpdateProfilFormType::class, $user); // Créez le formulaire à partir de votre UserType
+        $user = $this->getUser();
+        $form = $this->createForm(UpdateProfilFormType::class, $user); //form from UserType
 
         $form->handleRequest($request);
 
@@ -97,11 +97,11 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Redirigez l'utilisateur après la mise à jour du profil
+            //Route profil page after to connect
             return $this->redirectToRoute('app_profil');
         }
 
-        // Passez le formulaire à la vue Twig
+        // Form in twig
         return $this->render('security/updateProfil.html.twig', [
             'updateProfilForm' => $form->createView(),
         ]);
